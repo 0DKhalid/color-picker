@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Pallete from './Pallete';
+import Pallete from './Palette';
 import seedColors from './seedColors';
 
 class App extends Component {
