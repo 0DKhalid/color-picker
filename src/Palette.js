@@ -6,7 +6,8 @@ import './Palette.css';
 
 class Pallete extends Component {
   state = {
-    level: 500
+    level: 500,
+    format: 'hex'
   };
 
   onLevelChange = level => {
@@ -14,14 +15,22 @@ class Pallete extends Component {
     this.setState({ level });
   };
 
+  onColorFormatChange = value => {
+    this.setState({ format: value });
+  };
+
   render() {
-    const { level } = this.state;
+    const { level, format } = this.state;
     const colorBoxes = this.props.palette.colors[level].map(color => (
-      <ColorBox key={color.hex} name={color.name} background={color.hex} />
+      <ColorBox key={color.hex} name={color.name} background={color[format]} />
     ));
     return (
       <div className='Palette'>
-        <Navbar level={level} onLevelChange={this.onLevelChange} />
+        <Navbar
+          level={level}
+          onLevelChange={this.onLevelChange}
+          handleChange={this.onColorFormatChange}
+        />
         {/* Nav */}
         <div className='Palette-colors'>{colorBoxes}</div>
         {/* footer */}
