@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import Slider from 'rc-slider';
-import { Select, MenuItem } from '@material-ui/core';
+import { Select, MenuItem, Snackbar } from '@material-ui/core';
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
 
 class Navbar extends Component {
   state = {
-    format: 'hex'
+    format: 'hex',
+    open: false
   };
 
   handleChangeFormat = e => {
-    this.setState({ format: e.target.value });
+    this.setState({ format: e.target.value, open: true });
     this.props.handleChange(e.target.value);
+  };
+  closeSnakBar = () => {
+    this.setState({ open: false });
   };
 
   render() {
-    const { level, onLevelChange, handleChange } = this.props;
-    const { format } = this.state;
+    const { level, onLevelChange } = this.props;
+    const { format, open } = this.state;
     return (
       <header className='Navbar'>
         <div className='logo'>
@@ -41,6 +45,23 @@ class Navbar extends Component {
             <MenuItem value='rgba'>RGBA - rgb(255, 255, 255, 1.0)</MenuItem>
           </Select>
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={open}
+          autoHideDuration={3000}
+          message={
+            <span id='message-d'>Format Changed To {format.toUpperCase()}</span>
+          }
+          ContentProps={{
+            'aria-describedby': 'message-id'
+          }}
+          onClose={this.closeSnakBar}
+          action={
+            <button className='close-snakbar' onClick={this.closeSnakBar}>
+              &times;
+            </button>
+          }
+        />
       </header>
     );
   }

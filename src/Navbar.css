@@ -46,3 +46,18 @@
   margin-left: -7px;
   margin-top: -3px;
 }
+
+.select-format {
+  margin: auto;
+  margin-right: 1rem;
+}
+
+.close-snakbar {
+  font-size: 20px;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+}
