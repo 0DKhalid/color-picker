@@ -33,7 +33,11 @@ const styles = {
 };
 class PaletteList extends Component {
   render() {
-    const { palettes, classes } = this.props;
+    const {
+      palettes,
+      classes,
+      history: { push }
+    } = this.props;
     return (
       <div className={classes.root}>
         <div className={classes.contanier}>
@@ -42,7 +46,11 @@ class PaletteList extends Component {
           </nav>
           <div className={classes.palettes}>
             {palettes.map(palette => (
-              <MiniPalette key={palette.id} {...palette} />
+              <MiniPalette
+                key={palette.id}
+                {...palette}
+                redirctToColorPage={() => push(`/palette/${palette.id}`)}
+              />
             ))}
           </div>
         </div>
