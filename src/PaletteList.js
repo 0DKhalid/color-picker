@@ -8,22 +8,20 @@ const styles = {
     backgroundColor: 'blue',
     height: '100%',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'start-flex'
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   contanier: {
     width: '50%',
     display: 'flex',
-    alignItems: 'start-flex',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'column',
     flexWrap: 'wrap'
   },
   nav: {
     display: 'flex',
     width: '100%',
-    justifyContent: 'space-between',
-    color: '#fff'
+    justifyContent: 'space-between'
   },
   palettes: {
     boxSizing: 'border-box',
@@ -37,17 +35,15 @@ class PaletteList extends Component {
   render() {
     const { palettes, classes } = this.props;
     return (
-      <div>
-        <div className={classes.root}>
-          <div className={classes.contanier}>
-            <nav className={classes.nav}>
-              <h1>React Colors</h1>
-            </nav>
-            <div className={classes.palettes}>
-              {palettes.map(palette => (
-                <MiniPalette key={palette.id} {...palette} />
-              ))}
-            </div>
+      <div className={classes.root}>
+        <div className={classes.contanier}>
+          <nav className={classes.nav}>
+            <h1>React Colors</h1>
+          </nav>
+          <div className={classes.palettes}>
+            {palettes.map(palette => (
+              <MiniPalette key={palette.id} {...palette} />
+            ))}
           </div>
         </div>
       </div>
