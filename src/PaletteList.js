@@ -49,7 +49,7 @@ class PaletteList extends Component {
               <MiniPalette
                 key={palette.id}
                 {...palette}
-                redirctToColorPage={() => push(`/palette/${palette.id}`)}
+                redirctToColorPage={() => push(`/palette/${palette.id} to `)}
               />
             ))}
           </div>
