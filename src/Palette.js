@@ -29,6 +29,7 @@ class Pallete extends Component {
         background={color[format]}
         colorId={color.id}
         paletteId={id}
+        showMoreLink
       />
     ));
     return (
