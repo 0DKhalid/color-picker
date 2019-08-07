@@ -11,11 +11,11 @@
 .SingleColorBox .ColorBox {
   height: 50%;
 } */
-
+/* 
 .ColorBox.go-back {
   background-color: #000;
-}
-.copy-btn,
+/* } */
+/* .copy-btn,
 .go-back-btn {
   width: 100px;
   height: 30px;
@@ -35,7 +35,7 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
-}
+} */
 /* .copy-btn {
   opacity: 0;
 } */
@@ -57,9 +57,9 @@
   font-size: 12px;
 } */
 
-.light-text {
+/* .light-text {
   color: #fff;
-}
+} */
 
 /* .ColorBox .dark-text {
   color: rgba(0, 0, 0, 0.5);
