@@ -76,7 +76,9 @@ const styles = theme => ({
 
 class NewPaletteForm extends Component {
   state = {
-    open: false
+    open: false,
+    newColor: 'black',
+    colors: ['blue', '#0f0']
   };
 
   handleDrawerOpen = () => {
@@ -87,9 +89,15 @@ class NewPaletteForm extends Component {
     this.setState({ open: false });
   };
 
+  updateBtnColor = ({ hex }) => {
+    this.setState({ newColor: hex });
+  };
+  addColorsToScreen = () => {
+    this.setState({ colors: [...this.state.colors, this.state.newColor] });
+  };
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { open, newColor, colors } = this.state;
 
     return (
       <div className={classes.root}>
@@ -139,10 +147,15 @@ class NewPaletteForm extends Component {
             </Button>
           </div>
           <ChromePicker
-            color='purple'
-            onChangeComplete={newColor => console.log(newColor)}
+            color={newColor}
+            onChangeComplete={newColor => this.updateBtnColor(newColor)}
           />
-          <Button variant='contained' color='primary'>
+          <Button
+            variant='contained'
+            color='primary'
+            style={{ backgroundColor: newColor }}
+            onClick={this.addColorsToScreen}
+          >
             Add Color
           </Button>
         </Drawer>
@@ -152,7 +165,11 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <h1>kssjhhs</h1>
+          <ul>
+            {colors.map(color => (
+              <li style={{ backgroundColor: color }}>{color}</li>
+            ))}
+          </ul>
         </main>
       </div>
     );
