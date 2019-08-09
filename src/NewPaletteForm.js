@@ -15,7 +15,8 @@ import {
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import DragableColorBox from './DragableColorBox';
+import arrayMove from 'array-move';
+import DraggableColorList from './DraggableColorList';
 const drawerWidth = 400;
 
 const styles = theme => ({
@@ -142,6 +143,11 @@ class NewPaletteForm extends Component {
       colors: this.state.colors.filter(({ name }) => name !== colorName)
     });
   };
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ colors }) => ({
+      colors: arrayMove(colors, oldIndex, newIndex)
+    }));
+  };
   render() {
     const { classes } = this.props;
     const {
@@ -247,15 +253,12 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-
-          {colors.map(color => (
-            <DragableColorBox
-              key={color.name}
-              color={color.color}
-              name={color.name}
-              deleteColorHandller={() => this.deleteColor(color.name)}
-            />
-          ))}
+          <DraggableColorList
+            colors={colors}
+            deleteColor={this.deleteColor}
+            axis='xy'
+            onSortEnd={this.onSortEnd}
+          />
         </main>
       </div>
     );
