@@ -35,6 +35,7 @@ class App extends Component {
             <NewPaletteForm
               {...routeProps}
               savePaletteColors={this.savePaletteColors}
+              palettes={this.state.palettes}
             />
           )}
         />
