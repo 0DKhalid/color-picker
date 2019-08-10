@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import { ChromePicker } from 'react-color';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
 import {
-  Drawer,
   CssBaseline,
   AppBar,
   Toolbar,
   Typography,
-  Divider,
   IconButton,
   Button
 } from '@material-ui/core';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import arrayMove from 'array-move';
-import DraggableColorList from './DraggableColorList';
 import { Link } from 'react-router-dom';
 
 class PaletteFormNav extends Component {
