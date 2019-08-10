@@ -78,12 +78,16 @@ const styles = theme => ({
 });
 
 class NewPaletteForm extends Component {
+  static defaultProps = {
+    maxColors: 20
+  };
+
   state = {
     open: false,
     currentColor: 'black',
     newColorName: '',
     newPaletteName: '',
-    colors: []
+    colors: this.props.palettes[0].colors
   };
 
   componentDidMount() {
@@ -148,8 +152,18 @@ class NewPaletteForm extends Component {
       colors: arrayMove(colors, oldIndex, newIndex)
     }));
   };
+
+  clearePalette = () => {
+    this.setState({ colors: [] });
+  };
+  randomColor = () => {
+    const allColors = this.props.palettes.map(palette => palette.colors).flat();
+    let random = Math.floor(Math.random() * allColors.length);
+    const randomColor = allColors[random];
+    this.setState({ colors: [...this.state.colors, randomColor] });
+  };
   render() {
-    const { classes } = this.props;
+    const { classes, maxColors } = this.props;
     const {
       open,
       currentColor,
@@ -157,7 +171,7 @@ class NewPaletteForm extends Component {
       newColorName,
       newPaletteName
     } = this.state;
-
+    const isPaletteFull = maxColors <= this.state.colors.length;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -213,10 +227,19 @@ class NewPaletteForm extends Component {
           <Divider />
           <Typography variant='h4'>Design Your Palette</Typography>
           <div>
-            <Button variant='contained' color='secondary'>
-              Cleare Palette
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={this.clearePalette}
+            >
+              Create Palette
             </Button>
-            <Button variant='contained' color='primary'>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={this.randomColor}
+              disabled={isPaletteFull}
+            >
               Rndom Color
             </Button>
           </div>
@@ -241,7 +264,11 @@ class NewPaletteForm extends Component {
               variant='contained'
               type='submit'
               color='primary'
-              style={{ backgroundColor: currentColor }}
+              style={{
+                backgroundColor: isPaletteFull ? 'grey' : currentColor,
+                cursor: isPaletteFull && 'not-allowed'
+              }}
+              disabled={isPaletteFull}
             >
               Add Color
             </Button>
