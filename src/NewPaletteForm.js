@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ChromePicker } from 'react-color';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -10,10 +9,10 @@ import {
   Button
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import arrayMove from 'array-move';
 import DraggableColorList from './DraggableColorList';
 import PaletteFormNav from './PaletteFornNav';
+import ColorPickerForm from './ColorPickerForm';
 const drawerWidth = 400;
 
 const styles = theme => ({
@@ -81,21 +80,8 @@ class NewPaletteForm extends Component {
 
   state = {
     open: false,
-    currentColor: 'black',
-    newColorName: '',
     colors: this.props.palettes[0].colors
   };
-
-  componentDidMount() {
-    ValidatorForm.addValidationRule('isColorNameTaken', value =>
-      this.state.colors.every(
-        ({ name }) => name.toLowerCase() !== value.toLowerCase()
-      )
-    );
-    ValidatorForm.addValidationRule('isColorUniqe', value =>
-      this.state.colors.every(({ color }) => color !== this.state.currentColor)
-    );
-  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -105,15 +91,7 @@ class NewPaletteForm extends Component {
     this.setState({ open: false });
   };
 
-  updateBtnColor = ({ hex }) => {
-    this.setState({ currentColor: hex });
-  };
-  addColorsToScreen = () => {
-    // console.log('click');
-    const newColor = {
-      color: this.state.currentColor,
-      name: this.state.newColorName
-    };
+  addColorsToScreen = newColor => {
     this.setState({
       colors: [...this.state.colors, newColor],
       newColorName: ''
@@ -154,7 +132,7 @@ class NewPaletteForm extends Component {
   };
   render() {
     const { classes, maxColors, palettes } = this.props;
-    const { open, currentColor, colors, newColorName } = this.state;
+    const { open, colors } = this.state;
     const isPaletteFull = maxColors <= this.state.colors.length;
     return (
       <div className={classes.root}>
@@ -198,35 +176,11 @@ class NewPaletteForm extends Component {
               Rndom Color
             </Button>
           </div>
-          <ChromePicker
-            color={currentColor}
-            onChangeComplete={currentColor => this.updateBtnColor(currentColor)}
+          <ColorPickerForm
+            isPaletteFull={isPaletteFull}
+            addColorsToScreen={this.addColorsToScreen}
+            colors={this.state.colors}
           />
-          <ValidatorForm onSubmit={this.addColorsToScreen}>
-            <TextValidator
-              label='Color Name'
-              name='newColorName'
-              value={newColorName}
-              onChange={this.onChageHandller}
-              validators={['required', 'isColorNameTaken', 'isColorUniqe']}
-              errorMessages={[
-                'this field is required',
-                'This Name has taken, pick another one',
-                'This Color has taken, pick another one'
-              ]}
-            />
-            <Button
-              variant='contained'
-              type='submit'
-              color='primary'
-              style={{
-                backgroundColor: isPaletteFull ? 'grey' : currentColor
-              }}
-              disabled={isPaletteFull}
-            >
-              Add Color
-            </Button>
-          </ValidatorForm>
         </Drawer>
         <main
           className={classNames(classes.content, {
