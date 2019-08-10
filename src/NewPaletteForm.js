@@ -13,29 +13,11 @@ import arrayMove from 'array-move';
 import DraggableColorList from './DraggableColorList';
 import PaletteFormNav from './PaletteFornNav';
 import ColorPickerForm from './ColorPickerForm';
-const drawerWidth = 400;
 
+const drawerWidth = 400;
 const styles = theme => ({
   root: {
     display: 'flex'
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 20
   },
   hide: {
     display: 'none'
@@ -127,7 +109,10 @@ class NewPaletteForm extends Component {
   randomColor = () => {
     const allColors = this.props.palettes.map(palette => palette.colors).flat();
     let random = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[random];
+    const randomColor =
+      allColors[random] === this.state.colors.name
+        ? allColors[random - 1]
+        : allColors[random];
     this.setState({ colors: [...this.state.colors, randomColor] });
   };
   render() {
@@ -137,7 +122,6 @@ class NewPaletteForm extends Component {
     return (
       <div className={classes.root}>
         <PaletteFormNav
-          classes={classes}
           open={open}
           handleDrawerOpen={this.handleDrawerOpen}
           palettes={palettes}
