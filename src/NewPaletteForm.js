@@ -17,6 +17,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import arrayMove from 'array-move';
 import DraggableColorList from './DraggableColorList';
+import { Link } from 'react-router-dom';
+import PaletteFormNav from './PaletteFornNav';
 const drawerWidth = 400;
 
 const styles = theme => ({
@@ -86,7 +88,6 @@ class NewPaletteForm extends Component {
     open: false,
     currentColor: 'black',
     newColorName: '',
-    newPaletteName: '',
     colors: this.props.palettes[0].colors
   };
 
@@ -98,11 +99,6 @@ class NewPaletteForm extends Component {
     );
     ValidatorForm.addValidationRule('isColorUniqe', value =>
       this.state.colors.every(({ color }) => color !== this.state.currentColor)
-    );
-    ValidatorForm.addValidationRule('isPaletteNameUniqe', value =>
-      this.props.palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      )
     );
   }
 
@@ -132,11 +128,10 @@ class NewPaletteForm extends Component {
   onChageHandller = ({ target: { value, name } }) => {
     this.setState({ [name]: value });
   };
-  onSubmitColors = () => {
-    let name = this.state.newPaletteName;
+  onSubmitColors = newPaletteName => {
     const newPalette = {
-      paletteName: name,
-      id: name.toLocaleLowerCase().replace(' ', '-'),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLocaleLowerCase().replace(' ', '-'),
       colors: this.state.colors
     };
     this.props.savePaletteColors(newPalette);
@@ -163,53 +158,18 @@ class NewPaletteForm extends Component {
     this.setState({ colors: [...this.state.colors, randomColor] });
   };
   render() {
-    const { classes, maxColors } = this.props;
-    const {
-      open,
-      currentColor,
-      colors,
-      newColorName,
-      newPaletteName
-    } = this.state;
+    const { classes, maxColors, palettes } = this.props;
+    const { open, currentColor, colors, newColorName } = this.state;
     const isPaletteFull = maxColors <= this.state.colors.length;
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          color='default'
-          position='fixed'
-          className={classNames(classes.appBar, {
-            [classes.appBarShift]: open
-          })}
-        >
-          <Toolbar disableGutters={!open}>
-            <IconButton
-              color='inherit'
-              aria-label='Open drawer'
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant='h6' color='inherit' noWrap>
-              Persistent drawer
-            </Typography>
-            <ValidatorForm onSubmit={this.onSubmitColors}>
-              <TextValidator
-                name='newPaletteName'
-                label='Palette Name'
-                value={newPaletteName}
-                onChange={this.onChageHandller}
-                validators={['required', 'isPaletteNameUniqe']}
-                errorMessages={['Enter PaletteName', 'Name already used!']}
-              />
-
-              <Button variant='contained' color='primary' type='submit'>
-                Save Palette
-              </Button>
-            </ValidatorForm>
-          </Toolbar>
-        </AppBar>
+        <PaletteFormNav
+          classes={classes}
+          open={open}
+          handleDrawerOpen={this.handleDrawerOpen}
+          palettes={palettes}
+          onSubmitColors={this.onSubmitColors}
+        />
         <Drawer
           className={classes.drawer}
           variant='persistent'
@@ -265,8 +225,7 @@ class NewPaletteForm extends Component {
               type='submit'
               color='primary'
               style={{
-                backgroundColor: isPaletteFull ? 'grey' : currentColor,
-                cursor: isPaletteFull && 'not-allowed'
+                backgroundColor: isPaletteFull ? 'grey' : currentColor
               }}
               disabled={isPaletteFull}
             >
