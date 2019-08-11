@@ -57,7 +57,10 @@ class PaletteFormNav extends Component {
   };
 
   showFormHandller = () => {
-    this.setState(prevState => ({ showForm: !prevState.showForm }));
+    this.setState({ showForm: true });
+  };
+  hideForm = () => {
+    this.setState({ showForm: false });
   };
   render() {
     const {
@@ -114,6 +117,7 @@ class PaletteFormNav extends Component {
           <PaletteMetaForm
             palettes={palettes}
             onSubmitColors={onSubmitColors}
+            hideForm={this.hideForm}
           />
         )}
       </div>
