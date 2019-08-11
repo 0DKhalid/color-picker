@@ -24,7 +24,8 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen
     }),
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -37,14 +38,27 @@ const styles = theme => ({
   menuButton: {
     marginLeft: 12,
     marginRight: 20
+  },
+  navBtns: {
+    marginRight: '1rem',
+    '& a': {
+      textDecoration: 'none'
+    }
+  },
+  btn: {
+    margin: '0 0.5rem'
   }
 });
 
 class PaletteFormNav extends Component {
   state = {
-    newPaletteName: ''
+    newPaletteName: '',
+    showForm: false
   };
 
+  showFormHandller = () => {
+    this.setState(prevState => ({ showForm: !prevState.showForm }));
+  };
   render() {
     const {
       classes,
@@ -53,7 +67,6 @@ class PaletteFormNav extends Component {
       onSubmitColors,
       palettes
     } = this.props;
-    const { newPaletteName } = this.state;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -77,16 +90,32 @@ class PaletteFormNav extends Component {
               Create A Palette
             </Typography>
           </Toolbar>
+          <div className={classes.navBtns}>
+            <Link to='/'>
+              <Button
+                variant='contained'
+                color='secondary'
+                className={classes.btn}
+              >
+                Go Back
+              </Button>
+            </Link>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={this.showFormHandller}
+              className={classes.btn}
+            >
+              Save
+            </Button>
+          </div>
+        </AppBar>
+        {this.state.showForm && (
           <PaletteMetaForm
             palettes={palettes}
             onSubmitColors={onSubmitColors}
           />
-          <Link to='/'>
-            <Button variant='contained' color='secondary'>
-              Go Back
-            </Button>
-          </Link>
-        </AppBar>
+        )}
       </div>
     );
   }
