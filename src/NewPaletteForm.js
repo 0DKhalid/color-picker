@@ -11,7 +11,7 @@ import {
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import arrayMove from 'array-move';
 import DraggableColorList from './DraggableColorList';
-import PaletteFormNav from './PaletteFornNav';
+import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 
 const drawerWidth = 400;
@@ -125,10 +125,8 @@ class NewPaletteForm extends Component {
   randomColor = () => {
     const allColors = this.props.palettes.map(palette => palette.colors).flat();
     let random = Math.floor(Math.random() * allColors.length);
-    const randomColor =
-      allColors[random] === this.state.colors.name
-        ? allColors[random - 1]
-        : allColors[random];
+
+    const randomColor = allColors[random];
     this.setState({ colors: [...this.state.colors, randomColor] });
   };
   render() {
