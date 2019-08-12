@@ -99,12 +99,12 @@ class NewPaletteForm extends Component {
   onChageHandller = ({ target: { value, name } }) => {
     this.setState({ [name]: value });
   };
-  onSubmitColors = newPaletteName => {
-    const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLocaleLowerCase().replace(' ', '-'),
-      colors: this.state.colors
-    };
+  onSubmitColors = newPalette => {
+    newPalette.id = newPalette.paletteName
+      .toLocaleLowerCase()
+      .replace(' ', '-');
+    newPalette.colors = this.state.colors;
+
     this.props.savePaletteColors(newPalette);
     this.props.history.push('/');
   };
@@ -167,7 +167,7 @@ class NewPaletteForm extends Component {
                 color='secondary'
                 onClick={this.clearePalette}
               >
-                Create Palette
+                Cleare a Palette
               </Button>
               <Button
                 className={classes.btn}
