@@ -1,5 +1,5 @@
 import { DRAWER_WDITH } from '../constants';
-
+import sizes from './sizes';
 const drawerWidth = DRAWER_WDITH;
 const styles = theme => ({
   root: {
@@ -33,10 +33,17 @@ const styles = theme => ({
     marginRight: '1rem',
     '& a': {
       textDecoration: 'none'
+    },
+    [sizes.dwon('xs')]: {
+      marginRight: '0.5rem'
     }
   },
   btn: {
-    margin: '0 0.5rem'
+    margin: '0 0.5rem',
+    [sizes.dwon('xs')]: {
+      margin: '0 0.2rem',
+      padding: '0.3rem'
+    }
   }
 });
 
