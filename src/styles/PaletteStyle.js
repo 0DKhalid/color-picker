@@ -1,3 +1,5 @@
+import size from './sizes';
+
 export default {
   Palette: {
     height: '100vh',
@@ -39,6 +41,18 @@ export default {
       cursor: 'pointer',
       textDecoration: 'none',
       opacity: 1
+    },
+    [size.dwon('lg')]: {
+      width: '25%',
+      height: '33.333%'
+    },
+    [size.dwon('md')]: {
+      width: '50%',
+      height: '20%'
+    },
+    [size.dwon('xs')]: {
+      width: '100%',
+      height: '10%'
     }
   }
 };

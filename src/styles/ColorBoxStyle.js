@@ -14,11 +14,11 @@ export default {
     },
     [sizes.dwon('lg')]: {
       width: '50%',
-      height: props => (props.showMoreLink ? '20%' : '50%')
+      height: props => (props.showMoreLink ? '20%' : '33.333%')
     },
     [sizes.dwon('md')]: {
       width: '50%',
-      height: props => (props.showMoreLink ? '10%' : '50%')
+      height: props => (props.showMoreLink ? '10%' : '20%')
     },
     [sizes.dwon('xs')]: {
       width: '100%',
@@ -116,7 +116,10 @@ export default {
       textAlign: 'center',
       marginBottom: '0',
       padding: '1rem',
-      textTransform: 'uppercase'
+      textTransform: 'uppercase',
+      [sizes.dwon('xs')]: {
+        fontSize: '5rem'
+      }
     },
     '& p': {
       fontSize: '2rem',
