@@ -7,6 +7,7 @@ import styles from './styles/PaletteListStyle';
 class PaletteList extends Component {
   render() {
     const {
+      deletePalette,
       palettes,
       classes,
       history: { push }
@@ -24,6 +25,8 @@ class PaletteList extends Component {
                 key={palette.id}
                 {...palette}
                 redirctToColorPage={() => push(`/palette/${palette.id}`)}
+                deletePaletteHandller={deletePalette}
+                id={palette.id}
               />
             ))}
           </div>
