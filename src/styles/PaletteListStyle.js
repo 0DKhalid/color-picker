@@ -1,12 +1,18 @@
 import sizes from './sizes';
-
+import bg from './bg.svg';
 export default {
   root: {
-    backgroundColor: 'blue',
+    /* background by SVGBackgrounds.com */
+    backgroundColor: '#2a1aaa',
+    backgroundImage: `url(${bg})`,
     height: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    overflow: 'scroll'
+  },
+  heading: {
+    fontSize: '1.5rem'
   },
   contanier: {
     width: '50%',
@@ -17,10 +23,10 @@ export default {
     [sizes.dwon('lg')]: {
       width: '80%'
     },
-    [sizes.dwon('xs')]: {
+    [sizes.dwon('md')]: {
       width: '60%'
     },
-    [sizes.dwon('md')]: {
+    [sizes.dwon('xs')]: {
       width: '60%'
     }
   },
