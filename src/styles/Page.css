@@ -1,0 +1,19 @@
+.page {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    transition: opacity 500ms ease-out;
+  }
+
+  
+  .page-enter{
+      opacity: 0;
+  }
+
+  .page-enter-active{
+      opacity: 1;
+  }
+
+  .page-exit-active{
+      opacity: 0;
+  }
