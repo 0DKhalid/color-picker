@@ -43,7 +43,7 @@ export default {
       marginLeft: '-7px',
       marginTop: '-3px'
     },
-    [sizes.dwon('md')]: {
+    [sizes.dwon('sm')]: {
       width: '150px'
     }
   },

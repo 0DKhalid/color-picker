@@ -1,3 +1,4 @@
+import chroma from 'chroma-js';
 import sizes from './sizes';
 export default {
   root: {
@@ -9,7 +10,8 @@ export default {
     cursor: 'pointer',
     marginBottom: '-3.5px',
     '&:hover svg': {
-      color: '#fff',
+      color: props =>
+        chroma(props.color).luminance() >= 0.7 ? 'rgba(0,0,0, 0.5)' : '#fff',
       transform: 'scale(1.5)'
     },
     [sizes.dwon('lg')]: {
@@ -31,7 +33,8 @@ export default {
     left: '0px',
     bottom: '0px',
     padding: '10px',
-    color: 'black',
+    color: props =>
+      chroma(props.color).luminance() <= 0.7 ? '#fff' : 'rgba(0,0,0, 0.5)', //her I will show color depends on shade
     letterSpacing: '1px',
     textTransform: 'uppercase',
     fontSize: '12px',
@@ -39,6 +42,8 @@ export default {
     justifyContent: 'space-between'
   },
   deleteIcon: {
+    color: props =>
+      chroma(props.color).luminance() <= 0.7 ? '#fff' : 'rgba(0,0,0, 0.5)',
     transition: 'all 0.3s ease-in-out'
   }
 };

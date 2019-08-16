@@ -26,6 +26,7 @@ class PaletteFormNav extends Component {
     this.setState({ showForm: false });
   };
   render() {
+    const { showForm } = this.state;
     const {
       classes,
       open,
@@ -76,7 +77,7 @@ class PaletteFormNav extends Component {
             </Button>
           </div>
         </AppBar>
-        {this.state.showForm && (
+        {showForm && (
           <PaletteMetaForm
             palettes={palettes}
             onSubmitColors={onSubmitColors}

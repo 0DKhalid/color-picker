@@ -30,7 +30,7 @@ class Navbar extends Component {
         </div>
         {showLivelSlider && (
           <div>
-            <span>Level: {this.props.level}</span>
+            <span>Level: {level}</span>
             <div className={classes.slider}>
               <Slider
                 defaultValue={level}
