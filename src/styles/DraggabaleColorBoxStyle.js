@@ -11,7 +11,7 @@ export default {
     marginBottom: '-3.5px',
     '&:hover svg': {
       color: props =>
-        chroma(props.color).luminance() >= 0.7 ? 'rgba(0,0,0, 0.5)' : '#fff',
+        chroma(props.color).luminance() >= 0.7 ? 'rgba(0,0,0, 0.6)' : '#fff',
       transform: 'scale(1.5)'
     },
     [sizes.dwon('lg')]: {
@@ -34,7 +34,7 @@ export default {
     bottom: '0px',
     padding: '10px',
     color: props =>
-      chroma(props.color).luminance() <= 0.7 ? '#fff' : 'rgba(0,0,0, 0.5)', //her I will show color depends on shade
+      chroma(props.color).luminance() <= 0.7 ? '#fff' : 'rgba(0,0,0, 0.6)', //her I will show color depends on shade
     letterSpacing: '1px',
     textTransform: 'uppercase',
     fontSize: '12px',
@@ -43,7 +43,7 @@ export default {
   },
   deleteIcon: {
     color: props =>
-      chroma(props.color).luminance() <= 0.7 ? '#fff' : 'rgba(0,0,0, 0.5)',
+      chroma(props.color).luminance() <= 0.7 ? '#fff' : 'rgba(0,0,0, 0.6)',
     transition: 'all 0.3s ease-in-out'
   }
 };

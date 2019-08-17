@@ -36,6 +36,7 @@ class ColorPickerForm extends Component {
       color: this.state.currentColor,
       name: this.state.newColorName
     };
+    this.setState({ newColorName: '' });
     this.props.addColorsToScreen(newColor);
   };
   render() {
@@ -49,7 +50,10 @@ class ColorPickerForm extends Component {
           color={currentColor}
           onChangeComplete={currentColor => this.updateBtnColor(currentColor)}
         />
-        <ValidatorForm onSubmit={this.addColorsToScreen}>
+        <ValidatorForm
+          instantValidate={false}
+          onSubmit={this.addColorsToScreen}
+        >
           <TextValidator
             className={classes.colorNameInput}
             label='Color Name'

@@ -13,6 +13,7 @@ import arrayMove from 'array-move';
 import DraggableColorList from './DraggableColorList';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
+import seedColors from './seedColors';
 import styles from './styles/NewPaletteFormStyle';
 class NewPaletteForm extends Component {
   static defaultProps = {
@@ -21,7 +22,7 @@ class NewPaletteForm extends Component {
 
   state = {
     open: false,
-    colors: this.props.palettes[0].colors
+    colors: seedColors[0].colors
   };
 
   handleDrawerOpen = () => {
@@ -65,11 +66,19 @@ class NewPaletteForm extends Component {
   clearePalette = () => {
     this.setState({ colors: [] });
   };
-  randomColor = () => {
-    const allColors = this.props.palettes.map(palette => palette.colors).flat();
-    let random = Math.floor(Math.random() * allColors.length);
 
-    const randomColor = allColors[random];
+  randomColor = () => {
+    let allColors = this.props.palettes.map(palette => palette.colors).flat();
+    let random;
+    let randomColor;
+    let isDuplicateColor = true;
+    while (isDuplicateColor) {
+      random = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[random];
+      isDuplicateColor = this.state.colors.some(
+        color => color.name === randomColor.name
+      );
+    }
     this.setState({ colors: [...this.state.colors, randomColor] });
   };
   render() {
